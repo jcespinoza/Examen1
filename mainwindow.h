@@ -49,6 +49,7 @@ private slots:
     void actualizar_Data_CurrentFigura (int cual);
     void on_pbRemove_clicked();
     void on_pbCalAreas_clicked();
+    void on_pbInsertar_clicked();
 };
 
 #endif // MAINWINDOW_H

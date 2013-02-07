@@ -10,6 +10,10 @@ class nodo_figura
     nodo_figura *anterior;
     nodo_figura *siguiente;
     Figura *Fig;
+    ~nodo_figura(){
+        anterior=siguiente=0;
+        Fig=0;
+    }
 };
 class lista_figura
 {
@@ -26,6 +30,7 @@ public:
     void limpiar();
     bool vacia();
     void irA(int);
+    void insertar(int, Figura *);
     ~lista_figura();
     Figura* remover(int pos);
     void printList(){

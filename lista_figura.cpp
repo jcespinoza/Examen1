@@ -75,6 +75,7 @@ void lista_figura::limpiar(){
    while(this->actual!=0)
    {
        this->inicio=this->inicio->siguiente;
+       delete actual->Fig;
        delete actual;
        actual = this->inicio;
    }
@@ -136,6 +137,28 @@ void lista_figura::irA(int p){
         ir_a_inicio();
         if(actual->siguiente != 0)
             siguiente();
-        qDebug() << i;
+    }
+}
+
+void lista_figura::insertar(int pos, Figura * f){
+    if(pos >= 0 && pos <= cuantos){
+        if(vacia()){
+            agregar(f);
+            return;
+        }
+        irA(pos);
+        nodo_figura * nuevo = new nodo_figura(f);
+        if(pos==1){
+            inicio = nuevo;
+            if(actual->siguiente != 0)
+                actual->siguiente->anterior = nuevo;
+        }else{
+            actual->anterior->siguiente = nuevo;
+            if(actual->siguiente != 0)
+                actual->siguiente->anterior = nuevo;
+            final = nuevo;
+        }
+        cuantos++;
+        qDebug() << "got here";
     }
 }

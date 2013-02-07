@@ -201,3 +201,25 @@ void MainWindow::on_pbCalAreas_clicked()
         lista->siguiente();
     }
 }
+
+void MainWindow::on_pbInsertar_clicked()
+{
+    Rectangulo *R;
+    if (!ui->checkBoxSombreado->isChecked())
+          R = new Rectangulo();
+    else
+          R = new RectanguloSombreado();
+
+    // TODO ... llenar del UI los parametros
+    QColor color = this->ui->lblColor->palette().background().color();
+    QColor fondo = this->ui->lblFondo->palette().background().color();
+
+    R->setColor(color);
+    R->setFondo(fondo);
+    R->setX(ui->spinBoxX->value());
+    R->setY(ui->spinBoxY->value());
+    R->setAlto(ui->leAlto->text().toInt());
+    R->setAncho(ui->leAncho->text().toInt());
+    lista->insertar(ui->spPosition->value(), R);
+    board->update();
+}
