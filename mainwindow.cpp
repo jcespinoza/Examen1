@@ -222,4 +222,6 @@ void MainWindow::on_pbInsertar_clicked()
     R->setAncho(ui->leAncho->text().toInt());
     lista->insertar(ui->spPosition->value(), R);
     board->update();
+    qDebug() << "inserted it at " << ui->spPosition->value();
+    qDebug() << "Now there are " << lista->getCuantos() << " figures";
 }

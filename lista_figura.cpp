@@ -123,7 +123,7 @@ Figura * lista_figura::remover(int pos){
 }
 
 bool lista_figura::vacia(){
-    return inicio == 0;
+    return inicio == 0 || cuantos == 0;
 }
 
 void lista_figura::irA(int p){
@@ -133,16 +133,16 @@ void lista_figura::irA(int p){
     if(p == cuantos - 1){
         ir_a_final(); return;
     }
+    ir_a_inicio();
     for(int i = 1; i <= p; i++){
-        ir_a_inicio();
         if(actual->siguiente != 0)
             siguiente();
     }
 }
 
 void lista_figura::insertar(int pos, Figura * f){
-    if(pos >= 0 && pos <= cuantos){
-        if(vacia()){
+    if(pos >= 1){
+        if(vacia() || cuantos <= pos){
             agregar(f);
             return;
         }
@@ -150,15 +150,17 @@ void lista_figura::insertar(int pos, Figura * f){
         nodo_figura * nuevo = new nodo_figura(f);
         if(pos==1){
             inicio = nuevo;
-            if(actual->siguiente != 0)
-                actual->siguiente->anterior = nuevo;
+            actual->anterior = nuevo;
+            nuevo->siguiente = actual;
+
         }else{
             actual->anterior->siguiente = nuevo;
-            if(actual->siguiente != 0)
-                actual->siguiente->anterior = nuevo;
-            final = nuevo;
+            actual->anterior = nuevo;
+            nuevo->siguiente = actual;
+            nuevo->anterior = actual->anterior;
+            if(pos == cuantos)
+                final = nuevo;
         }
         cuantos++;
-        qDebug() << "got here";
     }
 }
