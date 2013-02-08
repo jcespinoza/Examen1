@@ -3,6 +3,7 @@
 #include "string.h"
 #include <ostream>
 #include <QDebug>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -224,4 +225,12 @@ void MainWindow::on_pbInsertar_clicked()
     board->update();
     qDebug() << "inserted it at " << ui->spPosition->value();
     qDebug() << "Now there are " << lista->getCuantos() << " figures";
+}
+
+void MainWindow::on_pvSave_clicked()
+{
+    QString file = QFileDialog::getSaveFileName(this, "Imagen para guardar","",
+                                                "PNG (*.png);;JPG (*.jpg);;All files (*.*)");
+    if( !file.isEmpty())
+        board->guardar(file);
 }

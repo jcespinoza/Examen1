@@ -158,7 +158,7 @@ void lista_figura::insertar(int pos, Figura * f){
             actual->anterior = nuevo;
             nuevo->siguiente = actual;
             nuevo->anterior = actual->anterior;
-            if(pos == cuantos)
+            if(pos > cuantos)
                 final = nuevo;
         }
         cuantos++;

@@ -50,6 +50,7 @@ private slots:
     void on_pbRemove_clicked();
     void on_pbCalAreas_clicked();
     void on_pbInsertar_clicked();
+    void on_pvSave_clicked();
 };
 
 #endif // MAINWINDOW_H

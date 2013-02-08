@@ -4,6 +4,8 @@ PaintBoard::PaintBoard(QWidget *parent): QWidget(parent)
 {
    this->lista =0;
    this->currentFigura = 0; // Valida es de 0 en adelante
+
+    pix = new QPixmap(geometry().width() -1, geometry().height() - 1);
 }
 
 float PaintBoard::distancia(int x, int y, int x1, int y1){
@@ -46,22 +48,27 @@ void PaintBoard::mouseDoubleClickEvent ( QMouseEvent * event )
 }
 
 void PaintBoard::paintEvent( QPaintEvent * event ){
-    QPainter painter( this ); // Inicializar el Painter
+    //QPainter painter( this ); // Inicializar el Painter
     // Dibujar el tablero primero SIEMPRE
-   painter.setBrush(Qt::white);
-   painter.drawRect(0,0,this->geometry().width()-1,this->geometry().height()-1);
+   /*painter.setBrush(Qt::white);
+   painter.drawRect(0,0,this->geometry().width()-1,this->geometry().height()-1);*/
 
+    pix->fill(Qt::white);
+    QPainter painter2(pix);
    if(lista!=0){ // Si el apuntador de lista es diferente de nulo
        // Recorrer la lista y dibujar
        lista->ir_a_inicio();
        for (int i=0; i < lista->getCuantos(); i++){
          Figura *temp = lista->recuperar();
 
-         temp->Dibujar(&painter);
+         temp->Dibujar(&painter2);
          lista->siguiente();
        }
+
+       QPainter painter(this);
+       painter.drawPixmap(0,0, *pix);
        /*qDebug()<<"CurrentFigura " << this->currentFigura << "cuantos :"
-                << this->lista->getCuantos();*/
+                << this->lista->getCuantos();
 
        if (this->currentFigura > 0
                && this->currentFigura <= this->lista->getCuantos()){
@@ -73,7 +80,7 @@ void PaintBoard::paintEvent( QPaintEvent * event ){
            Figura *temp = lista->recuperar(this->currentFigura);
            painter.drawEllipse(0,0,5,5);
            painter.drawLine(0,0,temp->getX(),temp->getY());
-       }
+       }*/
    }
 }
 
